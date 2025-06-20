@@ -12,6 +12,6 @@ class Course extends Model
     use HasFactory;
 
     public function students(){
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(Student::class)->withTimestamps();
     }
 }

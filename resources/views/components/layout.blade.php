@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Student Course Management System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     @vite('resources/css/app.css')
 </head>
 <body class="flex flex-col justify-between min-h-screen">
@@ -13,14 +15,31 @@
         </div>
     @endif
 
-    <header class="bg-amber-500 text-white p-4 w-full flex justify-center items-center">
-        <nav class="flex w-[80%] justify-between items-center">
-            <div>
-                <a href="/" class="text-xl font-bold">Student Course Management System</a>
-            </div>
-            <div class="flex space-x-4 text-xl">
-                <a href="{{ route('students.index') }}" class="hover:underline">View All Students</a>
-                <a href="{{ route('students.create') }}" class="hover:underline">Add New Student</a>
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-gray-900">
+                            <i class="fas fa-graduation-cap text-indigo-600 mr-2"></i>
+                            Student Management System
+                        </h1>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <i class="fas fa-users"></i> Students
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <i class="fas fa-book"></i> Courses
+                    </a>
+                    <a href="#" class="text-indigo-600 font-medium">
+                        <i class="fas fa-user-plus"></i> Enrollments
+                    </a>
+                </div>
             </div>
         </nav>
     </header>

@@ -39,7 +39,13 @@ Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.
 Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
 
+// routes for enrollments
 
+Route::get('/enrollments', [\App\Http\Controllers\EnrollmentController::class, 'index'])->name('enrollments.index');
+
+Route::get('/enrollments/create', [\App\Http\Controllers\EnrollmentController::class, 'create'])->name('enrollments.create');
+
+Route::post('/enrollments', [\App\Http\Controllers\EnrollmentController::class, 'store'])->name('enrollments.store');
 
 
 
