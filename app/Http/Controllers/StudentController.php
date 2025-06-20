@@ -39,7 +39,6 @@ class StudentController extends Controller
 
         Student::create($validatedData); 
 
-        // return redirect()->route('students.index');
         return redirect()->route('students.index')->with('success', 'Student created successfully.');
 
     } 

@@ -1,14 +1,13 @@
 <x-layout>
-    <h1>Students page</h1>
-    <h2>List of students</h2>
-    <ul>
+    <h1>All Students</h1>
+    <ul class="flex flex-col space-y-4 mt-4 ">
         @foreach ($students as $student)
-            <li>
-                <h3>{{ $student->name }}</h3>
+            <x-studentCard :student="$student">
+                <h3 class="font-semibold">{{ $student->name }}</h3>
                 <p>Student ID: {{ $student->id }}</p>
                 <p>Email: {{ $student->email }}</p>
-                <a href="/students/{{ $student->id }}">View Details</a>
-            </li>
+            </x-studentCard>
+            
         @endforeach
         @if ($students->isEmpty())
             <p>No students found.</p>
@@ -17,6 +16,10 @@
     <div >
         {{ $students->links() }}
     </div>
-    <a href="{{ route('students.create') }}">Add a new student</a>
-    <a href="/">Back to Home</a>
+
+    <div class="flex gap-4 font-medium">
+        <a href="{{ route('students.create') }}">Add a new student</a>
+        <a href="/">Back to Home</a>
+    </div>
+
 </x-layout>
