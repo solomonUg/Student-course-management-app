@@ -1,11 +1,25 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    // Count the total number of students and courses
+    $students_count = \App\Models\Student::count();
+    $courses_count = \App\Models\Course::count();
+    $courses = \App\Models\Course::all();
+    // Calculate the average units across all courses
+    $average_units = round($courses->avg('unit'), 2);
+    // Count the total number of enrollments
+    $enrollments_count = \DB::table('course_student')->count();
+    return view('dashboard', compact('students_count', 'courses_count', 'enrollments_count', 'average_units' ));
 });
 
 Route::get('/students', [StudentController::class, 'index'])->name('students.index');
@@ -41,11 +55,14 @@ Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('cour
 
 // routes for enrollments
 
-Route::get('/enrollments', [\App\Http\Controllers\EnrollmentController::class, 'index'])->name('enrollments.index');
+Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
 
-Route::get('/enrollments/create', [\App\Http\Controllers\EnrollmentController::class, 'create'])->name('enrollments.create');
+Route::get('/enrollments/create', [EnrollmentController::class, 'create'])->name('enrollments.create');
 
-Route::post('/enrollments', [\App\Http\Controllers\EnrollmentController::class, 'store'])->name('enrollments.store');
+Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrollments.store');
+
+Route::get('/enrollments/{id}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
+
 
 
 
