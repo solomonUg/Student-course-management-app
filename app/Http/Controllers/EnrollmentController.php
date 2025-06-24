@@ -13,7 +13,9 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        return view('enrollments.index');
+         $students = Student::with('courses')->get(); // Eager load to avoid N+1 issue
+        return view('enrollments.index', compact('students'));
+    
     }
 
     /**
@@ -38,10 +40,9 @@ class EnrollmentController extends Controller
     ]);
 
     $student = Student::find($request->student_id);
-    $student->courses()->attach($request->course_ids);
+    $student->courses()->sync($request->course_ids);
 
-    return redirect()->route('enrollments.index')
-                   ->with('success', 'Student enrolled successfully!');
+    return redirect()->route('enrollments.index')->with('success', 'Student enrolled successfully!');
     }
 
     /**
@@ -57,7 +58,16 @@ class EnrollmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+         // Get the student with their enrolled courses
+        $student = Student::with('courses')->findOrFail($id);
+        
+        // Get all available courses
+        $allCourses = Course::all();
+        
+        // Get currently enrolled course IDs for easy checking
+        $enrolledCourseIds = $student->courses->pluck('id')->toArray();
+        
+        return view('enrollments.edit', compact('student', 'allCourses', 'enrolledCourseIds'));
     }
 
     /**
@@ -65,7 +75,15 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'course_ids' => 'required|array',
+            'course_ids.*'=> 'exists:courses,id'
+        ]);
+
+        $student = Student::findOrFail($id);
+        $student->courses()->sync($request->course_ids);
+
+        return redirect()->route('enrollments.index')->with('success', 'Enrollment updated successfully!');
     }
 
     /**
