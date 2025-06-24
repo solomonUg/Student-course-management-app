@@ -44,14 +44,14 @@
         <nav class="flex mb-6" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <a href="/dashboard" class="text-gray-500 hover:text-gray-700 transition-colors">
                         <i class="fas fa-home mr-2"></i>Dashboard
                     </a>
                 </li>
                 <li>
                     <div class="flex items-center">
                         <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
-                        <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">Enrollments</a>
+                        <a href="{{route('enrollments.index')}}" class="text-gray-500 hover:text-gray-700 transition-colors">Enrollments</a>
                     </div>
                 </li>
                 <li aria-current="page">
@@ -195,24 +195,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Enrollment Notes -->
-                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-yellow-100 rounded-full p-2 mr-3">
-                                <i class="fas fa-sticky-note text-yellow-600"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">Additional Notes (Optional)</h3>
-                        </div>
-                        <textarea 
-                            x-model="notes"
-                            name="notes" 
-                            rows="4" 
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 resize-none"
-                            placeholder="Add any special notes or comments about this enrollment..."
-                        ></textarea>
-                    </div>
-
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-between pt-6 border-t border-gray-200">
                         <button 
