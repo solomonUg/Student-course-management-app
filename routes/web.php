@@ -63,6 +63,10 @@ Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrol
 
 Route::get('/enrollments/{id}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
 
+Route::put('/enrollments/{id}', [EnrollmentController::class, 'update'])->name('enrollment.update');
+
+
+
 
 
 
