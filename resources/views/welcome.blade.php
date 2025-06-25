@@ -18,9 +18,9 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <h1 class="text-xl font-bold text-gray-900">
+                        <h1 class="flex items-center text-xl font-bold text-gray-900">
                             <i class="fas fa-graduation-cap text-indigo-600 mr-2"></i>
-                            Student Management System
+                            <span class="hidden sm:block">Student Management System</span>
                         </h1>
                     </div>
                 </div>
