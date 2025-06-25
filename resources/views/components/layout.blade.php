@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col justify-between min-h-screen">
+<body class="flex flex-col justify-between min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
     @if(session('success'))
         <div class="bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded relative mx-auto my-4 w-fit shadow-md" role="alert">
             <span class="block sm:inline font-semibold">{{ session('success') }}</span>
@@ -16,7 +16,9 @@
     @endif
 
     <header class="bg-white shadow-sm border-b border-gray-200">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Navigation Header -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -27,21 +29,22 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <a href="/dashboard" class="text-gray-500 hover:text-gray-700 transition-colors">
                         <i class="fas fa-home"></i> Dashboard
                     </a>
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <a href="{{route('students.index')}}" class="text-gray-500 hover:text-gray-700 transition-colors">
                         <i class="fas fa-users"></i> Students
                     </a>
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <a href="{{route('courses.index')}}" class="text-gray-500 hover:text-gray-700 transition-colors">
                         <i class="fas fa-book"></i> Courses
                     </a>
-                    <a href="#" class="text-indigo-600 font-medium">
+                    <a href="{{route('enrollments.index')}}" class="text-indigo-600 font-medium">
                         <i class="fas fa-user-plus"></i> Enrollments
                     </a>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
     </header>
     <main>
         {{ $slot }}

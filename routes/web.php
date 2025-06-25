@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
@@ -11,30 +12,34 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    // Count the total number of students and courses
     $students_count = \App\Models\Student::count();
     $courses_count = \App\Models\Course::count();
     $courses = \App\Models\Course::all();
-    // Calculate the average units across all courses
     $average_units = round($courses->avg('unit'), 2);
-    // Count the total number of enrollments
     $enrollments_count = \DB::table('course_student')->count();
     return view('dashboard', compact('students_count', 'courses_count', 'enrollments_count', 'average_units' ));
-});
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+    // routes for courses
 
-Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
+    Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 
-Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+    Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
 
-Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
+    Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
 
-Route::put('/students/{id}', [StudentController::class, 'update'])->name('students.update');
+    Route::post('/students', [StudentController::class, 'store'])->name('students.store');
 
-Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
+    Route::get('/students/{id}/edit', [StudentController::class, 'edit'])->name('students.edit');
+
+    Route::put('/students/{id}', [StudentController::class, 'update'])->name('students.update');
+
+    Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
 
 // routes for courses
 
@@ -63,7 +68,13 @@ Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrol
 
 Route::get('/enrollments/{id}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
 
-Route::put('/enrollments/{id}', [EnrollmentController::class, 'update'])->name('enrollment.update');
+Route::put('/enrollments/{id}', [EnrollmentController::class, 'update'])->name('enrollments.update');
+});
+
+require __DIR__.'/auth.php';
+
+
+
 
 
 

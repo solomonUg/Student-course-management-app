@@ -76,12 +76,12 @@ class EnrollmentController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'course_ids' => 'required|array',
-            'course_ids.*'=> 'exists:courses,id'
+            'courses' => 'required|array',
+            'courses.*'=> 'exists:courses,id'
         ]);
 
         $student = Student::findOrFail($id);
-        $student->courses()->sync($request->course_ids);
+        $student->courses()->sync($request->courses);
 
         return redirect()->route('enrollments.index')->with('success', 'Enrollment updated successfully!');
     }

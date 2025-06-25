@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Course Enrollment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
-    <!-- Navigation Header -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-xl font-bold text-gray-900">
-                            <i class="fas fa-graduation-cap text-indigo-600 mr-2"></i>
-                            Student Management System
-                        </h1>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
-                        <i class="fas fa-home"></i> Dashboard
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
-                        <i class="fas fa-users"></i> Students
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-gray-700 transition-colors">
-                        <i class="fas fa-book"></i> Courses
-                    </a>
-                    <a href="#" class="text-indigo-600 font-medium">
-                        <i class="fas fa-user-plus"></i> Enrollments
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+<x-app-layout>
     <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumb -->
         <nav class="flex mb-6" aria-label="Breadcrumb">
@@ -307,5 +267,4 @@
             }
         }
     </script>
-</body>
-</html>
+</x-app-layout>

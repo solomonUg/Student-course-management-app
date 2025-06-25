@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <h1 class="text-3xl font-bold text-gray-800 mb-6">
         <i class="fas fa-user-graduate text-indigo-600 mr-2"></i> Student Enrollments
@@ -38,4 +38,4 @@
         </div>
     @endif
 </div>
-</x-layout>
+</x-app-layout>
