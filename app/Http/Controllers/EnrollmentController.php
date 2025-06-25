@@ -76,7 +76,7 @@ class EnrollmentController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'courses' => 'required|array',
+            'courses' => 'nullable|array',
             'courses.*'=> 'exists:courses,id'
         ]);
 
