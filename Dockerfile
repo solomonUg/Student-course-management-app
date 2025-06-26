@@ -14,6 +14,18 @@ ENV APP_ENV production
 ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 
+# Install system dependencies + Node.js
+RUN apt-get update && apt-get install -y \
+    git curl unzip zip libpng-dev libonig-dev libxml2-dev libzip-dev \
+    gnupg2 ca-certificates
+
+# Install Node.js via NodeSource
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Verify installation
+RUN node -v && npm -v
+
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
