@@ -1,18 +1,8 @@
-FROM richarvey/nginx-php-fpm:latest
+# Use PHP base image
+FROM php:8.2-fpm
 
-COPY . .
-
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
-
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
+# Set working directory
+WORKDIR /var/www/html
 
 # Install system dependencies + Node.js
 RUN apt-get update && apt-get install -y \
@@ -26,7 +16,33 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 # Verify installation
 RUN node -v && npm -v
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
 
-CMD ["/start.sh"]
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copy application code
+COPY . .
+
+# Set permissions early
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Pre-install dependencies (only run once during image build)
+RUN composer install --no-dev --optimize-autoloader
+RUN npm install && npm run build
+
+# Copy deploy script
+COPY scripts/00-laravel-deploy.sh /usr/local/bin/deploy.sh
+RUN chmod +x /usr/local/bin/deploy.sh
+
+# Ensure runtime write permissions for Laravel
+RUN mkdir -p /var/www/html/storage/framework/sessions && \
+    mkdir -p /var/www/html/storage/framework/views && \
+    mkdir -p /var/www/html/storage/logs && \
+    chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Final CMD — run script and then start PHP-FPM
+EXPOSE 8080
+
+CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && php artisan serve --host=0.0.0.0 --port=8080"]
