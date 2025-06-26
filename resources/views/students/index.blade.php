@@ -31,8 +31,8 @@
         </div>
 
         <div class="mt-10 flex space-x-4 text-sm font-medium">
-            <a href="/" class="text-indigo-600 hover:underline">
-                <i class="fas fa-home mr-1"></i> Back to Home
+            <a href="/dashboard" class="text-indigo-600 hover:underline">
+                <i class="fas fa-home mr-1"></i> Back to Dashboard
             </a>
         </div>
     </div>
