@@ -45,4 +45,4 @@ RUN mkdir -p /var/www/html/storage/framework/sessions && \
 # Final CMD — run script and then start PHP-FPM
 EXPOSE 8080
 
-CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && php artisan serve --host=0.0.0.0 --port=8080"]
+CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && php artisan serve --host=0.0.0.0 --port=8080"]
